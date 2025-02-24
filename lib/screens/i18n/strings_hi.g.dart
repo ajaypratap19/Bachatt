@@ -38,6 +38,16 @@ class TranslationsHi implements Translations {
 	@override String get verificationOneHeading => 'आपका व्हाट्सएप नंबर क्या है?';
 	@override String get verificationOneSubHeading => 'कृपया अपना आधार से जुड़ा मोबाइल नंबर दर्ज करें';
 	@override String get mobileNumber => 'मोबाइल नंबर';
+	@override String get enterOtp => 'कृपया ओटीपी दर्ज करें';
+	@override String get sent => 'हमने इसे यहां भेजा है:';
+	@override String get AppInfoSplashOneHeading => 'FD के रिटर्न,\n₹100 रोज़ाना से';
+	@override String get AppInfoSplashTwoHeading => 'कोई जुर्माना नहीं,\nकभी भी निकलें';
+	@override String get AppInfoSplashThirdHeading => '100% सुरक्षित और\nसुनिशचित';
+	@override String get AppInfoSplashOneSubHeading => 'छोटा निवेश, बड़ा भविष्य';
+	@override String get AppInfoSplashTwoSubHeading => '24 घंटे, कोई भी दिन, जरूरी के\nअनुसर कितना भी निकलेगा।';
+	@override String get AppInfoSplashThreeSubHeading => 'आपकी बचत, एसबीआई और आईसीआईसीआई के\nभरोसे के साथ।';
+	@override String get kContinue => 'जारी रखना';
+	@override String get startSaving => 'सहेजना प्रारंभ करें';
 }
 
 /// Flat map(s) containing all translations.
@@ -50,6 +60,16 @@ extension on TranslationsHi {
 			case 'verificationOneHeading': return 'आपका व्हाट्सएप नंबर क्या है?';
 			case 'verificationOneSubHeading': return 'कृपया अपना आधार से जुड़ा मोबाइल नंबर दर्ज करें';
 			case 'mobileNumber': return 'मोबाइल नंबर';
+			case 'enterOtp': return 'कृपया ओटीपी दर्ज करें';
+			case 'sent': return 'हमने इसे यहां भेजा है:';
+			case 'AppInfoSplashOneHeading': return 'FD के रिटर्न,\n₹100 रोज़ाना से';
+			case 'AppInfoSplashTwoHeading': return 'कोई जुर्माना नहीं,\nकभी भी निकलें';
+			case 'AppInfoSplashThirdHeading': return '100% सुरक्षित और\nसुनिशचित';
+			case 'AppInfoSplashOneSubHeading': return 'छोटा निवेश, बड़ा भविष्य';
+			case 'AppInfoSplashTwoSubHeading': return '24 घंटे, कोई भी दिन, जरूरी के\nअनुसर कितना भी निकलेगा।';
+			case 'AppInfoSplashThreeSubHeading': return 'आपकी बचत, एसबीआई और आईसीआईसीआई के\nभरोसे के साथ।';
+			case 'kContinue': return 'जारी रखना';
+			case 'startSaving': return 'सहेजना प्रारंभ करें';
 			default: return null;
 		}
 	}

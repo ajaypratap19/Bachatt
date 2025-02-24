@@ -1,0 +1,46 @@
+# Dependencies:
+/build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+.DS_Store
+.atom/
+.idea
+ios/.generated/
+pubspec.lock
+android/.generated/
+*.class
+*.log
+*.pyc
+*.swp
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+#IDE specific files:
+.idea/
+*.iml
+
+#Generated files
+**/.dart_tool/
+pubspec.lock
+**/doc/api/
+**/ios/Flutter/.last_build_id
+
+#Plaform specific files
+**/android/app/.cxx
+**/ios/
+
+#Secrets and sensitive information
+**/api_key.txt
+**/firebase_config.json
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json

@@ -1,5 +1,7 @@
 import 'package:bachatt/screens/screens.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class OtpVerification extends StatefulWidget {
   final String mobileNumber;
@@ -51,169 +53,175 @@ class _OtpVerificationState extends State<OtpVerification> {
       ),
     );
 
-    return SafeArea(
-        bottom: false,
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 40, left: 20),
-                //OTP Column
-                child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        leadingWidth: 70,
+        // Back arrow
+        leading: IconButton(
+          padding: EdgeInsets.only(left: 23, top: 10),
+          onPressed: () {
+            Navigator.pop(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const UserVerification(),
+              ),
+            );
+          },
+          icon: SvgPicture.asset(Images.backBtn),
+        ),
+      ),
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 32, top: 33),
+            //OTP Column
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  t.enterOtp,
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w600,
+                      color: AppColor.baseGrey800),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  t.sent,
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.baseGrey500),
+                ),
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Back arrow
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(40),
-                      child: Material(
-                        child: InkWell(
-                          child: Icon(
-                            Icons.arrow_circle_left_outlined,
-                            size: 50,
-                          ),
-                          onTap: () {
-                            Navigator.pop(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const UserVerification()));
-                          },
+                    Text(
+                      '+91 ${widget.mobileNumber}',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: AppColor.baseGrey500),
+                    ),
+                    IconButton(
+                      alignment: Alignment.topCenter,
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: SvgPicture.asset(Images.pencil),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 61,
+                ),
+                //OTP
+                Pinput(
+                  length: 6,
+                  autofocus: true,
+                  defaultPinTheme: defaultPinTheme,
+                  focusedPinTheme: focusedPinTheme,
+                  submittedPinTheme: submittedPinTheme,
+                  obscureText: true,
+                  onChanged: (value) {},
+                  onSubmitted: (value) {},
+                  onCompleted: (value) {},
+                  controller: _controller,
+                ),
+              ],
+            ),
+          ),
+          //Other end
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 34),
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                      color: AppColor.baseGrey500,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                    ),
+                    children: [
+                      TextSpan(text: 'By Proceeding, I agree to\u{00A0}'),
+                      TextSpan(
+                        text: 'bachatt\'s T&C',
+                        style: TextStyle(
+                            color: AppColor.appBackgroundColor,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            decoration: TextDecoration.underline),
+                        recognizer: TapGestureRecognizer()..onTap = () {},
+                      ),
+                      TextSpan(text: '\u{00A0}and\n'),
+                      TextSpan(
+                        text: 'Privacy Policy',
+                        style: TextStyle(
+                          color: AppColor.appBackgroundColor,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          decoration: TextDecoration.underline,
                         ),
+                        recognizer: TapGestureRecognizer()..onTap = () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              //Btn
+              IconButton(
+                onPressed: () {
+                  _controller.value.text.length == 6
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Transactions()))
+                      : ScaffoldMessenger.of(context)
+                          .showSnackBar(completionSnackbar);
+                },
+                style: IconButton.styleFrom(
+                    backgroundColor: Color(0xFF3a0ea3),
+                    padding: EdgeInsets.only(bottom: 74, top: 20),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.zero))),
+                icon: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Verify OTP",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        fontSize: 24,
                       ),
                     ),
                     SizedBox(
-                      height: 30,
+                      width: 6.5,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Text(
-                        "Please enter OTP",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Text(
-                        'We have sent it to:',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Row(
-                        children: [
-                          Text(
-                            '+91 ${widget.mobileNumber}',
-                            style: TextStyle(
-                                fontSize: 19,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black54),
-                          ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(40),
-                            child: Material(
-                              child: InkWell(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Icon(
-                                    Icons.edit_outlined,
-                                    size: 18,
-                                  ),
-                                ),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    //OTP
-                    Padding(
-                        padding: EdgeInsets.only(left: 15),
-                        child: Pinput(
-                          length: 6,
-                          autofocus: true,
-                          defaultPinTheme: defaultPinTheme,
-                          focusedPinTheme: focusedPinTheme,
-                          submittedPinTheme: submittedPinTheme,
-                          obscureText: true,
-                          onChanged: (value) {},
-                          onSubmitted: (value) {},
-                          onCompleted: (value) {},
-                          controller: _controller,
-                        )),
+                    const Icon(
+                      Icons.arrow_forward,
+                      size: 25,
+                      color: Colors.white,
+                    )
                   ],
                 ),
               ),
-              //Other end
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 30),
-                    child: Text(
-                      'By proceeding, I agree to bachatt\'s T&C and\nPrivacy Policy',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  //Btn
-                  IconButton(
-                    onPressed: () {
-                      _controller.value.text.length == 6
-                          ? Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Transactions()))
-                          : ScaffoldMessenger.of(context)
-                              .showSnackBar(completionSnackbar);
-                    },
-                    style: IconButton.styleFrom(
-                        backgroundColor: Color(0xFF3a0ea3),
-                        padding: EdgeInsets.only(bottom: 70, top: 20),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.zero))),
-                    icon: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Verify OTP",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 24),
-                        ),
-                        const Icon(
-                          Icons.arrow_forward,
-                          size: 30,
-                          color: Colors.white,
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              )
             ],
-          ),
-        ));
+          )
+        ],
+      ),
+    );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:bachatt/screens/splash/spalsh_screen.dart';
+import 'package:bachatt/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Be Vietnam Pro',
       ),
-      home: const SpalshScreen(),
+      home: const SplashScreen(),
     );
   }
 }

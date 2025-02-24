@@ -1,4 +1,5 @@
 import 'package:bachatt/screens/screens.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class UserVerification extends StatefulWidget {
@@ -37,6 +38,7 @@ class _UserVerificationState extends State<UserVerification> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
       ),
       backgroundColor: Colors.white,
       //Main Column
@@ -44,57 +46,94 @@ class _UserVerificationState extends State<UserVerification> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 34, top: 20),
+            padding: EdgeInsets.only(left: 34, top: 60),
             //Upper Coulmn
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   t.verificationOneHeading,
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 32),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 32,
+                    color: AppColor.baseGrey800,
+                  ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 16,
                 ),
                 Text(
                   t.verificationOneSubHeading,
                   style: TextStyle(
                       fontSize: 18,
-                      color: Colors.grey,
+                      color: AppColor.baseGrey500,
                       fontWeight: FontWeight.w400),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 20,
                 ),
-                Padding(
-                  padding: EdgeInsets.only(right: 34),
-                  child: TextFormField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      counterText: '',
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20.0)),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      hintText: t.mobileNumber,
-                      prefixText: "+91 ",
-                      prefixStyle: TextStyle(
+                //Text Input
+                SizedBox(
+                  height: 51,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 34),
+                    child: TextField(
+                      controller: _controller,
+                      textAlignVertical: TextAlignVertical.bottom,
+                      decoration: InputDecoration(
+                          counterText: '',
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          filled: true,
+                          fillColor: AppColor.lightGray,
+                          border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0)),
+                            borderSide: BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
+                          ),
+                          hintText: t.mobileNumber,
+                          hintStyle: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: AppColor.charcoal,
+                          ),
+                          prefixIcon: Container(
+                            margin: EdgeInsets.only(
+                                top: 7.0, bottom: 7.0, right: 16.0),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                right: BorderSide(
+                                  width: 1.0,
+                                  color: AppColor.suvaGrey,
+                                ),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: 9.0,
+                                  right: 11.0,
+                                  top: 6.0,
+                                  bottom: 6.0),
+                              child: Text(
+                                '+91',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: AppColor.charcoal,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          )),
+                      maxLength: 10,
+                      style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black,
+                        color: AppColor.charcoal,
+                        fontWeight: FontWeight.w400,
                       ),
+                      keyboardType: TextInputType.number,
                     ),
-                    maxLength: 10,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                    keyboardType: TextInputType.number,
                   ),
                 ),
               ],
@@ -104,27 +143,80 @@ class _UserVerificationState extends State<UserVerification> {
           Column(
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Checkbox(
-                      splashRadius: 0,
-                      activeColor: AppColor.appBackgroundColor,
-                      value: _onPressedBox,
-                      onChanged: (newValue) {
-                        setState(() {
-                          _onPressedBox = newValue;
-                        });
-                      },
+                    padding: EdgeInsets.only(left: 20),
+                    child: SizedBox(
+                      width: 23,
+                      height: 23,
+                      child: Checkbox(
+                        fillColor: WidgetStateProperty.resolveWith((states) {
+                          if (states.contains(WidgetState.selected)) {
+                            return AppColor.appBackgroundColor;
+                          }
+                          if (!states.contains(WidgetState.disabled)) {
+                            return AppColor.lightGray;
+                          }
+                          return null;
+                        }),
+                        splashRadius: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.zero),
+                        ),
+                        // activeColor: AppColor.appBackgroundColor,
+                        side: BorderSide(
+                          color: Colors.transparent,
+                          width: 0,
+                        ),
+                        value: _onPressedBox,
+                        onChanged: (newValue) {
+                          setState(() {
+                            _onPressedBox = newValue;
+                          });
+                        },
+                      ),
                     ),
                   ),
-                  Text(
-                    'I allow bachatt to fetch my credit report from\nExperian to advice me on best financial\nproducts. I agree to Experian T&C ',
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14),
-                  )
+                  SizedBox(
+                    width: 9,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                          color: AppColor.baseGrey500,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14),
+                      children: [
+                        TextSpan(text: 'I allow\u{00A0}'),
+                        TextSpan(
+                          text: 'bachatt',
+                          style: TextStyle(
+                              color: AppColor.appBackgroundColor,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()..onTap = () {},
+                        ),
+                        TextSpan(
+                            text:
+                                '\u{00A0}to fetch my credit card report from\n'),
+                        TextSpan(
+                            text: 'Experian to advice me on best financial\n'),
+                        TextSpan(text: 'products. I agree to\u{00A0}'),
+                        TextSpan(
+                          text: 'Experian T&C',
+                          style: TextStyle(
+                              color: AppColor.appBackgroundColor,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()..onTap = () {},
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
               SizedBox(
@@ -151,17 +243,17 @@ class _UserVerificationState extends State<UserVerification> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Verify Mobile Number ",
+                      "Verify Mobile Number\u{00A0}",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           color: Colors.white,
                           fontSize: 24),
                     ),
                     const Icon(
                       Icons.arrow_forward,
-                      size: 35,
+                      size: 32,
                       color: Colors.white,
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -172,6 +264,3 @@ class _UserVerificationState extends State<UserVerification> {
     );
   }
 }
-
-  // prefixIcon: SizedBox(
- //     height: 1, child: VerticalDivider(color: Colors.black)),
