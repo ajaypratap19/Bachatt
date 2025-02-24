@@ -50,7 +50,7 @@ Column screenDataPlaceholder(BuildContext context, AppInfoObject data) {
             (index) => Container(
               width: 20,
               height: 12,
-              color: AppColor.baseGrey500,
+              color: AppColor.appBackgroundColor,
               child: CircleAvatar(
                 radius: 1,
                 backgroundColor: Colors.black,
